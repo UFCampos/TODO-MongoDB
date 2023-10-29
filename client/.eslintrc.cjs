@@ -33,10 +33,12 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
+		tsconfigRootDir: __dirname,
 	},
 	plugins: [
 		'react',
 	],
 	rules: {
+		'react/react-in-jsx-scope': 'off',
 	},
 };
