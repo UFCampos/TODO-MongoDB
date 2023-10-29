@@ -1,4 +1,4 @@
-import {type InterfaceTodo, type ApiResponse, type TodoProps} from '../types';
+import {type InterfaceTodo, type ApiResponse} from '../types';
 
 const baseUrl: URL = new URL(`${import.meta.env.API_URL}`);
 
