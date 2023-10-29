@@ -30,6 +30,9 @@ router.put("/:id", async (req: Request, res: Response) => {
         const updatedTodo: ITodo = await updateTodo(id, todo);
         res.status(200).json({ message: "Todo updated successfully", todo: updatedTodo })
     } catch (error: any) {
+        if (error.name === "CastError"){
+            return res.status(404).json({ message: "Todo ID does not match any existing document" })
+        }
         res.status(400).json(error.message)
     }
 })

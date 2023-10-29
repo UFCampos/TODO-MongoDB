@@ -36,17 +36,27 @@ export const addTodo = async ({ title, description, completed }: ITodo): Promise
     return savedTodo
 }
 
+/**
+ * Updates a todo item with the specified ID.
+ *
+ * @param {string} id - The ID of the todo item to update.
+ * @param {ITodo} todo - The updated todo item.
+ * @param {string} todo.title - The updated title of the todo item.
+ * @param {string} todo.description - The updated description of the todo item.
+ * @param {boolean} todo.completed - The updated completed status of the todo item.
+ * @return {Promise<ITodo>} The updated todo item.
+ */
 export const updateTodo = async (id: string, { title, description, completed }: ITodo): Promise<ITodo> => {
     if (!id) throw new Error("Id is required");
-    if (!title) throw new Error("Title is required");
-    if (!description) throw new Error("Description is required");
     if (typeof completed !== "boolean") throw new Error("Completed must be a boolean");
 
-    const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(id, {
-        title,
-        description,
-        completed
-    });
+    let updatedTodo: ITodo | null
+
+    // Conditionally updating title and description
+    title && (updatedTodo = await Todo.findByIdAndUpdate(id, { title }))
+    description && (updatedTodo = await Todo.findByIdAndUpdate(id, { description }))
+
+    updatedTodo = await Todo.findByIdAndUpdate(id, { completed }, { new: true });
 
     const savedTodo = await updatedTodo?.save();
 
@@ -55,6 +65,12 @@ export const updateTodo = async (id: string, { title, description, completed }: 
     return savedTodo
 }
 
+/**
+ * Deletes a todo item with the given ID.
+ *
+ * @param {string} id - The ID of the todo item to delete.
+ * @return {Promise<ITodo>} The deleted todo item.
+ */
 export const deleteTodo = async (id: string): Promise<ITodo> => {
     if (!id) throw new Error("Id is required");
 
