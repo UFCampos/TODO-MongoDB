@@ -1,6 +1,6 @@
 import {type InterfaceTodo, type ApiResponse} from '../types';
 
-const baseUrl: URL = new URL(`${import.meta.env.API_URL}`);
+const baseUrl: URL = new URL('http://localhost:5000/todos');
 
 /**
  * Retrieves todos from the API.
@@ -10,6 +10,7 @@ const baseUrl: URL = new URL(`${import.meta.env.API_URL}`);
 export const getTodos = async (): Promise<ApiResponse> => {
 	const response: Response = await fetch(baseUrl);
 	const data: ApiResponse = await response.json() as ApiResponse;
+	console.log(data)
 	return data;
 };
 

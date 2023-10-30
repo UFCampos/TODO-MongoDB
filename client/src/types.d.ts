@@ -12,6 +12,6 @@ export type TodoProps = {
 export type ApiResponse = {
 	message: string;
 	status: string;
-	todo?: ITodo;
-	todos: ITodo[];
+	todo?: InterfaceTodo;
+	todos: InterfaceTodo[];
 };
